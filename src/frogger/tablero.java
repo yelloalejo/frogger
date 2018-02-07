@@ -5,6 +5,7 @@
  */
 package frogger;
 
+import java.awt.event.KeyEvent;
 import modelos.ImageFondo;
 
 /**
@@ -36,10 +37,14 @@ public class tablero extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setPreferredSize(new java.awt.Dimension(600, 600));
 
         dibujo1.setBackground(new java.awt.Color(0, 204, 102));
         dibujo1.setPreferredSize(new java.awt.Dimension(500, 500));
+        dibujo1.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                dibujo1KeyPressed(evt);
+            }
+        });
 
         javax.swing.GroupLayout dibujo1Layout = new javax.swing.GroupLayout(dibujo1);
         dibujo1.setLayout(dibujo1Layout);
@@ -79,6 +84,32 @@ public class tablero extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void dibujo1KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_dibujo1KeyPressed
+        if(evt.getKeyCode()==KeyEvent.VK_UP){
+            
+            
+            dibujo1.Direcciones(1);
+            
+        }
+        
+        if(evt.getKeyCode()==KeyEvent.VK_DOWN){
+                        dibujo1.Direcciones(2);
+
+        }
+        
+        if(evt.getKeyCode()==KeyEvent.VK_LEFT){
+                        dibujo1.Direcciones(3);
+
+        }
+        
+        if(evt.getKeyCode()==KeyEvent.VK_RIGHT){
+                        dibujo1.Direcciones(4);
+
+        }
+        
+        
+    }//GEN-LAST:event_dibujo1KeyPressed
 
     /**
      * @param args the command line arguments

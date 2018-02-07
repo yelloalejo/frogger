@@ -5,15 +5,18 @@
  */
 package frogger;
 
+import javax.swing.ImageIcon;
+import modelos.Jugador;
+
 /**
  *
  * @author diegoalejandromarulandamarin
  */
 public class dibujo extends javax.swing.JPanel {
 
-    /**
-     * Creates new form dibujo
-     */
+    Enemigo E1;
+    Jugador J1;
+    int animaciones;
     public dibujo() {
         initComponents();
     }
@@ -38,7 +41,51 @@ public class dibujo extends javax.swing.JPanel {
             .addGap(0, 300, Short.MAX_VALUE)
         );
     }// </editor-fold>//GEN-END:initComponents
-
+    public void Direcciones(int D){
+        
+        if(J1!=null){
+        
+        if(D==1){
+            this.J1.setDibujo(new ImageIcon(getClass().getResource(this.J1.getRutas()[animaciones])));
+            this.J1.setY(this.J1.getY() - 2);
+            animaciones++;
+            System.out.println(""+animaciones);
+        }
+        
+        if(this.animaciones==3){
+            this.animaciones=0;
+        }
+        
+        if(D==2){
+            this.J1.setY(this.J1.getY() + 5);
+        }
+        
+        if(D==3){
+            this.J1.setX(this.J1.getX() - 5);
+        }
+        
+        if(D==4){
+            this.J1.setX(this.J1.getX() + 5);
+        }
+        
+        if(this.J1.getX()>250){
+            this.J1.setX(0);
+        }
+        
+        if(this.J1.getX()<0){
+            this.J1.setX(250);
+        }
+        
+        if(this.J1.getY()>230){
+            this.J1.setY(0);
+        }
+        
+        if(this.J1.getY()<0){
+            this.J1.setY(230);
+        }
+        
+        }
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     // End of variables declaration//GEN-END:variables
