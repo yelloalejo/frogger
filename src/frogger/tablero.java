@@ -5,6 +5,8 @@
  */
 package frogger;
 
+import modelos.ImageFondo;
+
 /**
  *
  * @author diegoalejandromarulandamarin
@@ -16,6 +18,9 @@ public class tablero extends javax.swing.JFrame {
      */
     public tablero() {
         initComponents();
+        ImageFondo image=new ImageFondo();
+        image.setImage("../imagenes/fondo.png");
+        setContentPane(image);
     }
 
     /**
