@@ -33,6 +33,7 @@ public class dibujo extends javax.swing.JPanel {
     Enemigo E1;
     Jugador J1;
     int animaciones;
+    int count =0;
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -114,11 +115,18 @@ public class dibujo extends javax.swing.JPanel {
         
         }
     }
-    public boolean Colisiones(){
-        if(new Rectangle(this.J1.getX(), this.J1.getY(), this.J1.getAncho(), this.J1.getAlto()).intersects(new Rectangle(this.E1.getX(), this.E1.getY(), this.E1.getAncho(),this.E1.getAlto()))){
-            return true;
+    public void Colisiones(Graphics g){
+        if(count == 0) {
+                    
+            if(new Rectangle(this.J1.getX(), this.J1.getY(), this.J1.getAncho(), this.J1.getAlto()).intersects(new Rectangle(this.E1.getX(), this.E1.getY(), this.E1.getAncho(),this.E1.getAlto()))){
+                count++;
+                J1.setDibujo(J1.getDibujom());            
+                repaint();
+                this.E1.setBandera(false);
+                JOptionPane.showMessageDialog(null, "Gracias por jugar");           
+                System.exit(0);
+            }
         }
-        return false;
     }
     @Override
     protected void paintComponent(Graphics g) {
@@ -127,13 +135,15 @@ public class dibujo extends javax.swing.JPanel {
         
             g.drawImage(this.J1.getDibujo().getImage(), this.J1.getX(), this.J1.getY(), this.J1.getAncho(), this.J1.getAlto(), this);
             
-            if(Colisiones()== true){
+            Colisiones(g);
+            /*
+            if(Colisiones(g)== true){
             E1.setBandera(false);
             J1.setDibujo(J1.getDibujom());
             repaint();
             JOptionPane.showMessageDialog(null, "Gracias por jugar");
             System.exit(0);
-            } 
+            }*/
         }
         repaint();
     }

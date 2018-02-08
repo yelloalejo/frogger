@@ -108,7 +108,7 @@ public class Enemigo implements Runnable{
 
     @Override
     public void run() {
-        while(this.bandera){
+        while(this.bandera == true){
                 if (this.x + this.xa < 0)
 			this.xa = 1;
 		if (this.x + xa > 500  - 10)
