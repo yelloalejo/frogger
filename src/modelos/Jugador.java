@@ -20,7 +20,21 @@ public class Jugador {
     private Color fondo;
     ImageIcon dibujo;
     ImageIcon dibujom;
-    String Rutas[]=new String[9];
+    private String[] Rutasar = {"../imagenes/ini arriba.png", 
+        "../imagenes/salto arriba.png",
+        "../imagenes/ini arriba.png"};
+    
+    private String Rutasab[]={"../imagenes/inicial abajo.png",
+        "../imagenes/salto abajo.png",
+        "../imagenes/inicial abajo.png"};
+    
+    private String Rutasiz[]={"../imagenes/ini izq.png",
+        "../imagenes/salto izq.png",
+        "../imagenes/ini izq.png"};
+    
+    private String Rutasde[]={"../imagenes/ini der.png",
+        "../imagenes/salto der.png",
+        "../imagenes/ini der.png"};
 
     public Jugador() {
     }
@@ -31,18 +45,10 @@ public class Jugador {
         this.alto = alto;
         this.ancho = ancho;
         this.fondo = fondo;
-        this.Rutas[0]="../imagenes/ini arriba.png";
-        this.Rutas[1]="../imagenes/salto arriba.png";
-        this.Rutas[2]="../imagenes/ini der.png";
-        this.Rutas[3]="../imagenes/salto der.png";
-        this.Rutas[4]="../imagenes/inicial abajo.png";
-        this.Rutas[5]="../imagenes/salto abajo.png";
-        this.Rutas[6]="../imagenes/ini izq.png";
-        this.Rutas[7]="../imagenes/salto izq.png";
-        this.Rutas[8]="../imagenes/graphics-game-sprites.png";
 
-        this.dibujom=new ImageIcon(getClass().getResource(this.Rutas[8]));
-        this.dibujo=new ImageIcon(getClass().getResource(this.Rutas[0]));
+
+        this.dibujom=new ImageIcon(getClass().getResource("../imagenes/graphics-game-sprites.png"));
+        this.dibujo=new ImageIcon(getClass().getResource("../imagenes/ini arriba.png"));
     }
     public ImageIcon getDibujo() {
         return dibujo;
@@ -59,16 +65,6 @@ public class Jugador {
         this.dibujo = dibujom;
     }
 
-    public void setRutas(String[] Rutas) {
-        this.Rutas = Rutas;
-    }
-
-    public String[] getRutas() {
-        return Rutas;
-    }
-
-    
-    
     public int getX() {
         return x;
     }
@@ -108,4 +104,60 @@ public class Jugador {
     public void setFondo(Color fondo) {
         this.fondo = fondo;
     }   
+
+    /**
+     * @return the Rutasar
+     */
+    public String[] getRutasar() {
+        return Rutasar;
+    }
+
+    /**
+     * @param Rutasar the Rutasar to set
+     */
+    public void setRutasar(String[] Rutasar) {
+        this.Rutasar = Rutasar;
+    }
+
+    /**
+     * @return the Rutasab
+     */
+    public String[] getRutasab() {
+        return Rutasab;
+    }
+
+    /**
+     * @param Rutasab the Rutasab to set
+     */
+    public void setRutasab(String[] Rutasab) {
+        this.Rutasab = Rutasab;
+    }
+
+    /**
+     * @return the Rutasiz
+     */
+    public String[] getRutasiz() {
+        return Rutasiz;
+    }
+
+    /**
+     * @param Rutasiz the Rutasiz to set
+     */
+    public void setRutasiz(String[] Rutasiz) {
+        this.Rutasiz = Rutasiz;
+    }
+
+    /**
+     * @return the Rutasde
+     */
+    public String[] getRutasde() {
+        return Rutasde;
+    }
+
+    /**
+     * @param Rutasde the Rutasde to set
+     */
+    public void setRutasde(String[] Rutasde) {
+        this.Rutasde = Rutasde;
+    }
 }
