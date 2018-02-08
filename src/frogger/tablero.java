@@ -37,6 +37,11 @@ public class tablero extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                formKeyPressed(evt);
+            }
+        });
 
         dibujo1.setBackground(new java.awt.Color(0, 204, 102));
         dibujo1.setPreferredSize(new java.awt.Dimension(500, 500));
@@ -86,6 +91,10 @@ public class tablero extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void dibujo1KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_dibujo1KeyPressed
+        
+    }//GEN-LAST:event_dibujo1KeyPressed
+
+    private void formKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_formKeyPressed
         if(evt.getKeyCode()==KeyEvent.VK_UP){
             
             
@@ -106,11 +115,10 @@ public class tablero extends javax.swing.JFrame {
         if(evt.getKeyCode()==KeyEvent.VK_RIGHT){
                         dibujo1.Direcciones(4);
 
-        }
-        
-        
-    }//GEN-LAST:event_dibujo1KeyPressed
+        }        // TODO add your handling code here:
+    }//GEN-LAST:event_formKeyPressed
 
+    
     /**
      * @param args the command line arguments
      */

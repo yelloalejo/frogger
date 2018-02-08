@@ -41,7 +41,7 @@ public class Enemigo implements Runnable{
         this.bandera=true;
         this.xa=1;
         this.ya=-1;
-        this.Dibujo=new ImageIcon(getClass().getResource("../imagenes/C1.png"));
+        this.Dibujo=new ImageIcon(getClass().getResource("../imagenes/carro1.png"));
     }
     public ImageIcon getDibujo() {
         return Dibujo;

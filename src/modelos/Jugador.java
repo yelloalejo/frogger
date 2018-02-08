@@ -43,11 +43,9 @@ public class Jugador {
         
         this.dibujo=new ImageIcon(getClass().getResource(this.Rutas[0]));
     }
-
     public ImageIcon getDibujo() {
         return dibujo;
     }
-
     
     public void setDibujo(ImageIcon dibujo) {
         this.dibujo = dibujo;

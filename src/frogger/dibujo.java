@@ -5,7 +5,9 @@
  */
 package frogger;
 
+import java.awt.Color;
 import javax.swing.ImageIcon;
+import modelos.Enemigo;
 import modelos.Jugador;
 
 /**
@@ -14,12 +16,18 @@ import modelos.Jugador;
  */
 public class dibujo extends javax.swing.JPanel {
 
+    
+    public dibujo() {
+        initComponents();
+        this.J1=new Jugador(90, 10,10,10,Color.BLACK);
+        this.E1=new Enemigo(0, 0,30, 30, Color.RED);
+        Thread Hilo = new Thread(this.E1);
+        Hilo.start();
+        animaciones=0;
+    }
     Enemigo E1;
     Jugador J1;
     int animaciones;
-    public dibujo() {
-        initComponents();
-    }
 
     /**
      * This method is called from within the constructor to initialize the form.
