@@ -6,8 +6,6 @@
 package frogger;
 
 import java.awt.event.KeyEvent;
-import modelos.ImageFondo;
-
 /**
  *
  * @author diegoalejandromarulandamarin
@@ -18,10 +16,7 @@ public class tablero extends javax.swing.JFrame {
      * Creates new form tablero
      */
     public tablero() {
-        initComponents();
-        ImageFondo image=new ImageFondo();
-        image.setImage("../imagenes/fondo.png");
-        setContentPane(image);
+        initComponents();        
     }
 
     /**

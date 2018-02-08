@@ -19,6 +19,7 @@ public class Jugador {
     private int ancho;
     private Color fondo;
     ImageIcon dibujo;
+    ImageIcon dibujom;
     String Rutas[]=new String[9];
 
     public Jugador() {
@@ -40,7 +41,7 @@ public class Jugador {
         this.Rutas[7]="../imagenes/salto izq.png";
         this.Rutas[8]="../imagenes/graphics-game-sprites.png";
 
-        
+        this.dibujom=new ImageIcon(getClass().getResource(this.Rutas[8]));
         this.dibujo=new ImageIcon(getClass().getResource(this.Rutas[0]));
     }
     public ImageIcon getDibujo() {
@@ -49,6 +50,13 @@ public class Jugador {
     
     public void setDibujo(ImageIcon dibujo) {
         this.dibujo = dibujo;
+    }
+    public ImageIcon getDibujom() {
+        return dibujom;
+    }
+    
+    public void setDibujom(ImageIcon dibujom) {
+        this.dibujo = dibujom;
     }
 
     public void setRutas(String[] Rutas) {

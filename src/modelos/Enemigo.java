@@ -111,11 +111,11 @@ public class Enemigo implements Runnable{
         while(this.bandera){
                 if (this.x + this.xa < 0)
 			this.xa = 1;
-		if (this.x + xa > 250  - 10)
+		if (this.x + xa > 500  - 10)
 			this.xa = -1;
 		if (this.y + this.ya < 0)
 			this.ya = 1;
-		if (this.y + this.ya > 230 - 10)
+		if (this.y + this.ya > 550 - 10)
 			this.ya = -1;
 		
 		this.setX(this.getX() + this.xa);

@@ -6,7 +6,10 @@
 package frogger;
 
 import java.awt.Color;
+import java.awt.Graphics;
+import java.awt.Rectangle;
 import javax.swing.ImageIcon;
+import javax.swing.JOptionPane;
 import modelos.Enemigo;
 import modelos.Jugador;
 
@@ -19,8 +22,8 @@ public class dibujo extends javax.swing.JPanel {
     
     public dibujo() {
         initComponents();
-        this.J1=new Jugador(90, 10,10,10,Color.BLACK);
-        this.E1=new Enemigo(0, 0,30, 30, Color.RED);
+        this.J1=new Jugador(0,0,40,60,Color.BLACK);
+        this.E1=new Enemigo(0,0,40,60, Color.RED);
         Thread Hilo = new Thread(this.E1);
         Hilo.start();
         animaciones=0;
@@ -55,44 +58,90 @@ public class dibujo extends javax.swing.JPanel {
         
         if(D==1){
             this.J1.setDibujo(new ImageIcon(getClass().getResource(this.J1.getRutas()[animaciones])));
-            this.J1.setY(this.J1.getY() - 2);
+            this.J1.setY(this.J1.getY() - 20);
             animaciones++;
             System.out.println(""+animaciones);
-        }
-        
-        if(this.animaciones==3){
-            this.animaciones=0;
+            animaciones=0;
         }
         
         if(D==2){
-            this.J1.setY(this.J1.getY() + 5);
+            animaciones=5;
+            this.J1.setDibujo(new ImageIcon(getClass().getResource(this.J1.getRutas()[animaciones])));
+            this.J1.setDibujo(new ImageIcon(getClass().getResource(this.J1.getRutas()[animaciones+1])));
+            this.J1.setDibujo(new ImageIcon(getClass().getResource(this.J1.getRutas()[animaciones])));
+            this.J1.setY(this.J1.getY() + 20);
+            System.out.println(""+animaciones);
+            animaciones=0;
         }
         
         if(D==3){
-            this.J1.setX(this.J1.getX() - 5);
+            animaciones=7;
+            this.J1.setDibujo(new ImageIcon(getClass().getResource(this.J1.getRutas()[animaciones])));
+            this.J1.setDibujo(new ImageIcon(getClass().getResource(this.J1.getRutas()[animaciones+1])));
+            this.J1.setDibujo(new ImageIcon(getClass().getResource(this.J1.getRutas()[animaciones])));
+            this.J1.setX(this.J1.getX() - 20);
+            System.out.println(""+animaciones);
+            animaciones=0;
         }
-        
+    
         if(D==4){
-            this.J1.setX(this.J1.getX() + 5);
+            animaciones=3;
+            this.J1.setDibujo(new ImageIcon(getClass().getResource(this.J1.getRutas()[animaciones])));
+            this.J1.setDibujo(new ImageIcon(getClass().getResource(this.J1.getRutas()[animaciones+1])));
+            this.J1.setDibujo(new ImageIcon(getClass().getResource(this.J1.getRutas()[animaciones])));
+            this.J1.setX(this.J1.getX() + 20);
+            System.out.println(""+animaciones);
+            animaciones=0;
         }
         
-        if(this.J1.getX()>250){
+        if(this.J1.getX()>500){
             this.J1.setX(0);
         }
         
         if(this.J1.getX()<0){
-            this.J1.setX(250);
+            this.J1.setX(500);
         }
         
-        if(this.J1.getY()>230){
+        if(this.J1.getY()>550){
             this.J1.setY(0);
         }
         
         if(this.J1.getY()<0){
-            this.J1.setY(230);
+            this.J1.setY(550);
         }
         
         }
+    }
+    public void Colisiones(){
+        if(new Rectangle(this.J1.getX(), this.J1.getY(), this.J1.getAncho(), this.J1.getAlto()).intersects(new Rectangle(this.E1.getX(), this.E1.getY(), this.E1.getAncho(),this.E1.getAlto()))){
+            this.J1=null;
+        }
+    }
+    @Override
+    protected void paintComponent(Graphics g) {
+        super.paintComponent(g); //To change body of generated methods, choose Tools | Templates.
+       // g.drawOval(this.E1.getX(), this.E1.getY(), this.E1.getAncho(),this.E1.getAlto());
+        //g.setColor(this.E1.getFondo());
+        //g.fillOval(this.E1.getX(), this.E1.getY(), this.E1.getAncho(),this.E1.getAlto());
+        
+        g.drawImage(this.E1.getDibujo().getImage(), this.E1.getX(), this.E1.getY(), this.E1.getAncho(), this.E1.getAlto(), this);
+        
+        
+        
+        if(this.J1!=null){
+        
+            g.drawImage(this.J1.getDibujo().getImage(), this.J1.getX(), this.J1.getY(), this.J1.getAncho(), this.J1.getAlto(), this);
+            Colisiones();
+                
+            if(J1==null){
+                g.drawImage(this.J1.getDibujom().getImage(), this.J1.getX(), this.J1.getY(), this.J1.getAncho(), this.J1.getAlto(), this);
+                JOptionPane.showMessageDialog(null, "Gracias por jugar");
+                System.exit(0);
+        
+            
+            }
+            repaint();
+        }        
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
