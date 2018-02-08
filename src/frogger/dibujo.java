@@ -112,36 +112,34 @@ public class dibujo extends javax.swing.JPanel {
         
         }
     }
-    public void Colisiones(){
+    public boolean Colisiones(){
         if(new Rectangle(this.J1.getX(), this.J1.getY(), this.J1.getAncho(), this.J1.getAlto()).intersects(new Rectangle(this.E1.getX(), this.E1.getY(), this.E1.getAncho(),this.E1.getAlto()))){
-            this.J1=null;
+            return true;
         }
+        return false;
     }
     @Override
     protected void paintComponent(Graphics g) {
-        super.paintComponent(g); //To change body of generated methods, choose Tools | Templates.
-       // g.drawOval(this.E1.getX(), this.E1.getY(), this.E1.getAncho(),this.E1.getAlto());
-        //g.setColor(this.E1.getFondo());
-        //g.fillOval(this.E1.getX(), this.E1.getY(), this.E1.getAncho(),this.E1.getAlto());
-        
-        g.drawImage(this.E1.getDibujo().getImage(), this.E1.getX(), this.E1.getY(), this.E1.getAncho(), this.E1.getAlto(), this);
-        
-        
-        
+        super.paintComponent(g);g.drawImage(this.E1.getDibujo().getImage(), this.E1.getX(), this.E1.getY(), this.E1.getAncho(), this.E1.getAlto(), this);
         if(this.J1!=null){
         
             g.drawImage(this.J1.getDibujo().getImage(), this.J1.getX(), this.J1.getY(), this.J1.getAncho(), this.J1.getAlto(), this);
-            Colisiones();
-                
+            
+            if(Colisiones()== true){
+            g.drawImage(this.J1.getDibujom().getImage(), this.J1.getX(), this.J1.getY(), this.J1.getAncho(), this.J1.getAlto(), this);
+            repaint();
+            J1 = null;
+            }
+            //dibujar calavera   
             if(J1==null){
-                g.drawImage(this.J1.getDibujom().getImage(), this.J1.getX(), this.J1.getY(), this.J1.getAncho(), this.J1.getAlto(), this);
                 JOptionPane.showMessageDialog(null, "Gracias por jugar");
                 System.exit(0);
         
             
             }
-            repaint();
-        }        
+        }
+        
+        repaint();
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
