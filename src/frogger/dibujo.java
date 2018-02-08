@@ -8,6 +8,8 @@ package frogger;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Rectangle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import modelos.Enemigo;
@@ -18,13 +20,13 @@ import modelos.Jugador;
  * @author diegoalejandromarulandamarin
  */
 public class dibujo extends javax.swing.JPanel {
-
+    Thread Hilo;
     
     public dibujo() {
         initComponents();
         this.J1=new Jugador(0,0,40,60,Color.BLACK);
         this.E1=new Enemigo(0,0,40,60, Color.RED);
-        Thread Hilo = new Thread(this.E1);
+        Hilo = new Thread(this.E1);
         Hilo.start();
         animaciones=0;
     }
@@ -126,22 +128,15 @@ public class dibujo extends javax.swing.JPanel {
             g.drawImage(this.J1.getDibujo().getImage(), this.J1.getX(), this.J1.getY(), this.J1.getAncho(), this.J1.getAlto(), this);
             
             if(Colisiones()== true){
-            g.drawImage(this.J1.getDibujom().getImage(), this.J1.getX(), this.J1.getY(), this.J1.getAncho(), this.J1.getAlto(), this);
+            E1.setBandera(false);
+            J1.setDibujo(J1.getDibujom());
             repaint();
-            J1 = null;
-            }
-            //dibujar calavera   
-            if(J1==null){
-                JOptionPane.showMessageDialog(null, "Gracias por jugar");
-                System.exit(0);
-        
-            
-            }
+            JOptionPane.showMessageDialog(null, "Gracias por jugar");
+            System.exit(0);
+            } 
         }
-        
         repaint();
     }
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     // End of variables declaration//GEN-END:variables
 }
