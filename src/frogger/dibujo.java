@@ -135,15 +135,7 @@ public class dibujo extends javax.swing.JPanel {
         
             g.drawImage(this.J1.getDibujo().getImage(), this.J1.getX(), this.J1.getY(), this.J1.getAncho(), this.J1.getAlto(), this);
             
-            Colisiones(g);
-            /*
-            if(Colisiones(g)== true){
-            E1.setBandera(false);
-            J1.setDibujo(J1.getDibujom());
-            repaint();
-            JOptionPane.showMessageDialog(null, "Gracias por jugar");
-            System.exit(0);
-            }*/
+            Colisiones(g);            
         }
         repaint();
     }
