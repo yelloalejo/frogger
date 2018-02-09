@@ -26,7 +26,7 @@ public class dibujo extends javax.swing.JPanel {
 
     public dibujo() {
         initComponents();
-        this.J1 = new Jugador(0, 0, 40, 60, Color.BLACK);
+        this.J1 = new Jugador(219, 510, 40, 60, Color.BLACK);
         this.E1 = new Enemigo(0, 0, 40, 60, Color.RED);
         Hilo = new Thread(this.E1);
         Hilo.start();
@@ -66,35 +66,29 @@ public class dibujo extends javax.swing.JPanel {
                 this.animaciones = 0;
             }
 
-            if (D == 1) {
-                this.J1.setDibujo(new ImageIcon(getClass().getResource(this.J1.getRutasar()[animaciones])));
-                this.J1.setY(this.J1.getY() - 40);
-                animaciones++;
-                System.out.println("" + animaciones);
-            }
-
-            else if (D == 2) {
-                this.J1.setDibujo(new ImageIcon(getClass().getResource(this.J1.getRutasab()[animaciones])));
-                this.J1.setY(this.J1.getY() + 40);
-                animaciones++;
-                System.out.println("" + animaciones);
-                
-            }
-
-            else if (D == 3) {
-                this.J1.setDibujo(new ImageIcon(getClass().getResource(this.J1.getRutasiz()[animaciones])));
-                this.J1.setX(this.J1.getX() - 40);
-                animaciones++;
-                System.out.println("" + animaciones);
-                
-            }
-
-            else if (D == 4) {
-                this.J1.setDibujo(new ImageIcon(getClass().getResource(this.J1.getRutasde()[animaciones])));
-                this.J1.setX(this.J1.getX() + 40);
-                animaciones++;
-                System.out.println("" + animaciones);
-                
+            switch (D) {
+                case 1:
+                    this.J1.setDibujo(new ImageIcon(getClass().getResource(this.J1.getRutasar()[animaciones])));
+                    this.J1.setY(this.J1.getY() - 63);
+                    animaciones++;
+                    break;
+                case 2:
+                    this.J1.setDibujo(new ImageIcon(getClass().getResource(this.J1.getRutasab()[animaciones])));
+                    this.J1.setY(this.J1.getY() + 63);
+                    animaciones++;
+                    break;
+                case 3:
+                    this.J1.setDibujo(new ImageIcon(getClass().getResource(this.J1.getRutasiz()[animaciones])));
+                    this.J1.setX(this.J1.getX() - 63);
+                    animaciones++;
+                    break;
+                case 4:
+                    this.J1.setDibujo(new ImageIcon(getClass().getResource(this.J1.getRutasde()[animaciones])));
+                    this.J1.setX(this.J1.getX() + 63);
+                    animaciones++;
+                    break;
+                default:
+                    break;
             }
 
             if (this.J1.getX() > 500) {
@@ -105,12 +99,13 @@ public class dibujo extends javax.swing.JPanel {
                 this.J1.setX(500);
             }
 
-            if (this.J1.getY() > 550) {
-                this.J1.setY(0);
+            if (this.J1.getY() <= 47) {
+                JOptionPane.showMessageDialog(null, "Has ganado");
+                System.exit(0);
             }
 
             if (this.J1.getY() < 0) {
-                this.J1.setY(550);
+                this.J1.setY(559);
             }
 
         }
