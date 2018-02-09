@@ -14,6 +14,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import modelos.Enemigo;
 import modelos.Jugador;
+import modelos.bg;
 
 /**
  *
@@ -33,9 +34,9 @@ public class dibujo extends javax.swing.JPanel {
     }
     Enemigo E1;
     Jugador J1;
+    bg fondo;
     int animaciones;
     int count = 0;
-
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -132,6 +133,8 @@ public class dibujo extends javax.swing.JPanel {
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
+        fondo= new bg();        
+        g.drawImage(this.fondo.getfondoso().getImage(), 0, 0, 500, 559, this);
         g.drawImage(this.E1.getDibujo().getImage(), this.E1.getX(), this.E1.getY(), this.E1.getAncho(), this.E1.getAlto(), this);
         if (this.J1 != null) {
 
