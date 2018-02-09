@@ -17,7 +17,7 @@ import javax.swing.ImageIcon;
  *
  * @author diegoalejandromarulandamarin
  */
-public class Enemigo implements Runnable{
+public class Enemigo extends Thread{
     
     private int x;
     private int y;
@@ -42,6 +42,7 @@ public class Enemigo implements Runnable{
         this.xa=1;
         this.ya=-1;
         this.Dibujo=new ImageIcon(getClass().getResource("../imagenes/carro1.png"));
+        this.start();
     }
     public ImageIcon getDibujo() {
         return Dibujo;
@@ -110,17 +111,11 @@ public class Enemigo implements Runnable{
     public void run() {
         while(this.bandera == true){
                 if (this.x + this.xa < 0)
-			this.xa = 1;
+                    this.x = 500;
 		if (this.x + xa > 500  - 10)
-			this.xa = -1;
-		if (this.y + this.ya < 0)
-			this.ya = 1;
-		if (this.y + this.ya > 550 - 10)
-			this.ya = -1;
-		
-		this.setX(this.getX() + this.xa);
-		this.setY(this.getY() + this.ya);
+                    this.x = 0;		
                 
+		this.setX(this.getX() + this.xa);                
             try {
                 sleep(5);
             }
