@@ -6,6 +6,7 @@
 package modelos;
 
 import java.awt.Color;
+import java.awt.Rectangle;
 import javax.swing.ImageIcon;
 
 /**
@@ -15,11 +16,13 @@ import javax.swing.ImageIcon;
 public class Jugador {
     private int x;
     private int y;
-    private int alto;
-    private int ancho;
+    private int alto = 40;
+    private int ancho = 60;
     private Color fondo;
+    private Rectangle colision;
     ImageIcon dibujo;
     ImageIcon dibujom;
+    
     private String[] Rutasar = {"../imagenes/ini arriba.png", 
         "../imagenes/salto arriba.png",
         "../imagenes/ini arriba.png"};
@@ -39,14 +42,10 @@ public class Jugador {
     public Jugador() {
     }
 
-    public Jugador(int x, int y, int alto, int ancho, Color fondo) {
+    public Jugador(int x, int y, Color fondo) {
         this.x = x;
         this.y = y;
-        this.alto = alto;
-        this.ancho = ancho;
         this.fondo = fondo;
-
-
         this.dibujom=new ImageIcon(getClass().getResource("../imagenes/graphics-game-sprites.png"));
         this.dibujo=new ImageIcon(getClass().getResource("../imagenes/ini arriba.png"));
     }
@@ -159,5 +158,20 @@ public class Jugador {
      */
     public void setRutasde(String[] Rutasde) {
         this.Rutasde = Rutasde;
+    }
+
+    /**
+     * @return the colision
+     */
+    public Rectangle getColision() {
+        this.colision = new Rectangle(x,y, this.ancho, this.alto);
+        return colision;
+    }
+
+    /**
+     * @param colision the colision to set
+     */
+    public void setColision(Rectangle colision) {
+        this.colision = colision;
     }
 }

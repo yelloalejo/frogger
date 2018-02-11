@@ -5,51 +5,56 @@
  */
 package modelos;
 
-import frogger.dibujo;
 import java.awt.Color;
-import java.awt.Image;
-import java.awt.Rectangle;
+import static java.lang.Thread.sleep;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import static java.lang.Thread.sleep;
 import javax.swing.ImageIcon;
 
 /**
  *
  * @author diegoalejandromarulandamarin
  */
-public class Enemigo extends Thread{
+public class tronco extends Thread {
     
     private float x;
     private int y;
     private int alto;
     private int ancho;
-    private Rectangle colision;
     boolean bandera;
     float xa;
     float xd;
     ImageIcon Dibujo;
-    boolean orientacion;
+    boolean orientation;
+    boolean size;
     
-    public Enemigo() {
+    public tronco() {
     }
 
-    public Enemigo(int x, int y, int ancho, int alto, boolean isRight) {
+    public tronco(int x, int y,boolean isSmall, boolean rightMove) {
+        if (isSmall) {
+            this.Dibujo=new ImageIcon(getClass().getResource("../imagenes/troncogran.png"));                
+            this.ancho = 60;
+            this.alto = 40;
+        }
+        else{
+            this.Dibujo=new ImageIcon(getClass().getResource("../imagenes/troncopeque.png"));            
+            this.ancho = 120;
+            this.alto = 40;
+        }
         this.x = x;
         this.y = y;
-        this.alto = alto;
-        this.ancho = ancho;
-        this.bandera = true;
-        this.xd= 1;
-        this.xa= -1;
-        this.orientacion = isRight;        
+        this.bandera=true;
+        this.xd=1;
+        this.xa=-1;        
+        this.orientation = rightMove;
         this.start();
     }
     public boolean getOrientacion(){
-        return orientacion;
+        return orientation;
     }
     public void setOrientacion(boolean orientacion){
-        this.orientacion=orientacion;
+        this.orientation=orientacion;
     }
     public ImageIcon getDibujo() {
         return Dibujo;
@@ -91,6 +96,7 @@ public class Enemigo extends Thread{
         this.ancho = ancho;
     }
 
+
     public void setBandera(boolean bandera) {
         this.bandera = bandera;
     }
@@ -98,34 +104,18 @@ public class Enemigo extends Thread{
     public boolean isBandera() {
         return bandera;
     }
-    
-    /**
-     * @return the colision
-     */
-    public Rectangle getColision() {
-        return colision;
-    }
-
-    /**
-     * @param colision the colision to set
-     */
-    public void setColision(Rectangle colision) {
-        this.colision = colision;
-    }
+   
 
     @Override
     public void run() {
-        while(this.bandera == true){
-            this.colision = new Rectangle((int)x,y,ancho,alto);
-            if (orientacion){
-                this.Dibujo=new ImageIcon(getClass().getResource("../imagenes/carro2.png"));
+        while(this.bandera == true){                		                                
+            if (orientation == true){
                 if (this.x + xd > 500)
                     setX(0);
                 
                 this.setX(this.getX() + this.xd);
                 }
-            if (!orientacion) {
-                this.Dibujo=new ImageIcon(getClass().getResource("../imagenes/carro1.png"));
+            if (orientation == false) {                
                 if (this.x + this.xa < 0)
                     setX(500);
                 
@@ -135,11 +125,9 @@ public class Enemigo extends Thread{
                 sleep(5);
             }
             catch (InterruptedException ex) {
-                Logger.getLogger(Enemigo.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(tronco.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
         
     }
-
-    
 }

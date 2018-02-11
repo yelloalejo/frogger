@@ -7,37 +7,49 @@ package frogger;
 
 import java.awt.Color;
 import java.awt.Graphics;
-import java.awt.List;
 import java.awt.Rectangle;
 import java.util.ArrayList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import modelos.Enemigo;
 import modelos.Jugador;
 import modelos.bg;
+import modelos.tronco;
 
 /**
  *
  * @author diegoalejandromarulandamarin
  */
-public class dibujo extends javax.swing.JPanel {
-
-    Enemigo E1;
+public final class dibujo extends javax.swing.JPanel {
+    
+    tronco T1;
+    tronco T2;
+    tronco T3;
     Jugador J1;
     bg fondo;
     int animaciones;
     int count = 0;
     ArrayList<Enemigo> carros;
     
+    public Enemigo createEnemy(int x, int y, int width, int heigth,boolean orientation) {
+        Enemigo auto = new Enemigo(x,y,width, heigth, orientation);
+        return auto;
+    }
+    
     
     public dibujo() {
         initComponents();
-        this.J1 = new Jugador(219, 510, 40, 60, Color.BLACK);
-        this.E1 = new Enemigo(0, 0, 40, 60, Color.RED);
+        this.T1 = new tronco(119, 130, true, true);
+        this.T2 = new tronco(119, 70, false, false);
+        this.T3 = new tronco(159, 190, true, false);
+        this.J1 = new Jugador(219, 510, Color.BLACK);
         carros = new ArrayList();
-        carros.add(E1);
+        carros.add(createEnemy(219, 315, 60, 40, true));
+        carros.add(createEnemy(0, 315, 60, 40, true));
+        carros.add(createEnemy(0, 380, 60, 40, false));
+        carros.add(createEnemy(325, 380, 60, 40, false));
+        carros.add(createEnemy(200, 450, 60, 40, true));
+        carros.add(createEnemy(499, 450, 60, 40, true));
         animaciones = 0;
     }
     
@@ -76,6 +88,8 @@ public class dibujo extends javax.swing.JPanel {
                     this.J1.setDibujo(new ImageIcon(getClass().getResource(this.J1.getRutasar()[animaciones])));
                     this.J1.setY(this.J1.getY() - 63);
                     animaciones++;
+                    repaint();
+                    this.J1.setDibujo(new ImageIcon(getClass().getResource(this.J1.getRutasar()[animaciones])));                                
                     break;
                 case 2:
                     this.J1.setDibujo(new ImageIcon(getClass().getResource(this.J1.getRutasab()[animaciones])));
@@ -118,28 +132,37 @@ public class dibujo extends javax.swing.JPanel {
 
     public void Colisiones(Graphics g) {
         if (count == 0) {
-
-            if (new Rectangle(this.J1.getX(), this.J1.getY(), this.J1.getAncho(), this.J1.getAlto()).intersects(new Rectangle(this.E1.getX(), this.E1.getY(), this.E1.getAncho(), this.E1.getAlto()))) {
+            for (int i = 0; i < carros.size(); i++) {
+                if (J1.getColision().intersects(carros.get(i).getColision())){               
                 count++;
                 J1.setDibujo(J1.getDibujom());
                 repaint();
-                this.E1.setBandera(false);
+                this.carros.get(i).setBandera(false);
+                for (int j = 0; j < carros.size(); j++) {
+                    this.carros.get(j).setBandera(false);
+                }
                 JOptionPane.showMessageDialog(null, "Gracias por jugar");
                 System.exit(0);
-            }
+                }  
+            }            
         }
     }
 
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
-        fondo= new bg();        
+        fondo= new bg();
         g.drawImage(this.fondo.getfondoso().getImage(), 0, 0, 500, 559, this);
-        g.drawImage(this.E1.getDibujo().getImage(), this.E1.getX(), this.E1.getY(), this.E1.getAncho(), this.E1.getAlto(), this);
+        g.drawImage(this.T3.getDibujo().getImage(), (int)this.T3.getX(), this.T3.getY(), this.T3.getAncho(), this.T3.getAlto(), this);
+        g.drawImage(this.T2.getDibujo().getImage(), (int)this.T2.getX(), this.T2.getY(), this.T2.getAncho(), this.T2.getAlto(), this);
+        g.drawImage(this.T1.getDibujo().getImage(), (int)this.T1.getX(), this.T1.getY(), this.T1.getAncho(), this.T1.getAlto(), this);
+        
+        for (int i = 0; i < carros.size(); i++) {
+            g.drawImage(this.carros.get(i).getDibujo().getImage(), (int)this.carros.get(i).getX(), this.carros.get(i).getY(), this.carros.get(i).getAncho(), this.carros.get(i).getAlto(), this);
+        }
+       
         if (this.J1 != null) {
-
             g.drawImage(this.J1.getDibujo().getImage(), this.J1.getX(), this.J1.getY(), this.J1.getAncho(), this.J1.getAlto(), this);
-
             Colisiones(g);
         }
         repaint();

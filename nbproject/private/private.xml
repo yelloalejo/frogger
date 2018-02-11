@@ -3,13 +3,11 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/Users/diegoalejandromarulandamarin/Desktop/Prog%202/frogger/src/Imagenes/salto%20arriba.png</file>
             <file>file:/Users/diegoalejandromarulandamarin/Desktop/Prog%202/frogger/src/frogger/dibujo.java</file>
             <file>file:/Users/diegoalejandromarulandamarin/Desktop/Prog%202/frogger/src/frogger/tablero.java</file>
             <file>file:/Users/diegoalejandromarulandamarin/Desktop/Prog%202/frogger/src/modelos/Jugador.java</file>
             <file>file:/Users/diegoalejandromarulandamarin/Desktop/Prog%202/frogger/src/modelos/Enemigo.java</file>
-            <file>file:/Users/diegoalejandromarulandamarin/Desktop/Prog%202/frogger/src/Imagenes/ini%20der.png</file>
-            <file>file:/Users/diegoalejandromarulandamarin/Desktop/Prog%202/frogger/src/Imagenes/salto%20der.png</file>
+            <file>file:/Users/diegoalejandromarulandamarin/Desktop/Prog%202/frogger/src/modelos/bg.java</file>
         </group>
     </open-files>
 </project-private>
