@@ -26,6 +26,7 @@ public final class dibujo extends javax.swing.JPanel {
     vida corazon;
     int animaciones;
     int count = 0;
+    boolean wins = false;
     ArrayList<vida> corazones;
     ArrayList<Enemigo> carros;
     ArrayList<tronco> troncos;
@@ -144,22 +145,31 @@ public final class dibujo extends javax.swing.JPanel {
             }
 
             if (this.J1.getY() <= 47) {
-                JOptionPane.showMessageDialog(null, "Has ganado");
-                System.exit(0);
-                //this.J1.setX(219);
-                //this.J1.setY(510);
-                //for (int i = 0; i < troncos.size(); i++) {
-                    //this.troncos.get(i).setVelocidad((float) (this.troncos.get(i).getVelocidad() + 0.1f));
-                //}
-                //for (int j = 0; j < carros.size(); j++) {
-                    //this.carros.get(j).setVelocidad((float) (this.carros.get(j).getVelocidad() + 0.1f));
-                //}
+                this.wins = true;
+                this.J1.setX(219);
+                this.J1.setY(510);
+                //JOptionPane.showMessageDialog(null, "Has ganado");
+                //System.exit(0);
             }
 
             if (this.J1.getY() > 500) {
                 this.J1.setY(500);
             }
-
+            
+            if (this.wins) {
+                for (int i = 0; i < troncos.size(); i++) {
+                    this.troncos.get(i).setVelocidad((float)(this.troncos.get(i).getVelocidad() + 0.1f));
+                }
+                for (int j = 0; j < carros.size(); j++) {
+                    this.carros.get(j).setWon(wins);
+                    this.carros.get(j).setVelocidad((float)(this.troncos.get(j).getVelocidad() + 0.1f));
+                }
+                this.wins = false;
+            } else {
+               for (int j = 0; j < carros.size(); j++) {
+                    this.carros.get(j).setWon(wins);
+                } 
+            }
         }
     }
 

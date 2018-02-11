@@ -23,11 +23,12 @@ public class Enemigo extends Thread{
     private int ancho;
     private Rectangle colision;
     boolean bandera;
+    boolean won = false;
     float xa;
     float xd;
     ImageIcon Dibujo;
     boolean orientacion;
-    private float velocidad = 1;
+    private float velocidad = 0;
     
     public Enemigo() {
     }
@@ -110,6 +111,8 @@ public class Enemigo extends Thread{
     public void setColision(Rectangle colision) {
         this.colision = colision;
     }
+    
+    
 
     @Override
     public void run() {
@@ -119,16 +122,20 @@ public class Enemigo extends Thread{
                 this.Dibujo=new ImageIcon(getClass().getResource("../imagenes/carro2.png"));
                 if (this.x + xd > 500)
                     setX(0);
-                
-                this.setX(this.getX() + this.xd);
+                this.setX((this.getX() + this.xd));
+                if (this.won) {
+                    this.setX((this.getX() + this.xd) + this.velocidad);
                 }
+            }
             if (!orientacion) {
                 this.Dibujo=new ImageIcon(getClass().getResource("../imagenes/carro1.png"));
                 if (this.x + this.xa < 0)
                     setX(500);
-                
                 this.setX((this.getX() + this.xa));
+                if (this.won) {
+                    this.setX((this.getX() + this.xa) - this.velocidad);
                 }
+            }
             try {
                 sleep(5);
             }
@@ -151,6 +158,20 @@ public class Enemigo extends Thread{
      */
     public void setVelocidad(float velocidad) {
         this.velocidad = velocidad;
+    }
+
+    /**
+     * @return the won
+     */
+    public boolean isWon() {
+        return won;
+    }
+
+    /**
+     * @param won the won to set
+     */
+    public void setWon(boolean won) {
+        this.won = won;
     }
 
     
