@@ -5,9 +5,7 @@
  */
 package frogger;
 
-import java.awt.Color;
 import java.awt.Graphics;
-import java.awt.Rectangle;
 import java.util.ArrayList;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
@@ -21,33 +19,48 @@ import modelos.tronco;
  * @author diegoalejandromarulandamarin
  */
 public final class dibujo extends javax.swing.JPanel {
-    
-    tronco T1;
-    tronco T2;
-    tronco T3;
+        
     Jugador J1;
     bg fondo;
     int animaciones;
     int count = 0;
     ArrayList<Enemigo> carros;
+    ArrayList<tronco> troncos;
     
     public Enemigo createEnemy(int x, int y, int width, int heigth,boolean orientation) {
         Enemigo auto = new Enemigo(x,y,width, heigth, orientation);
         return auto;
     }
     
+    public tronco createtronco(int x, int y, boolean orientation) {
+        tronco tronquito = new tronco(x,y, orientation);
+        return tronquito;
+    }
     
     public dibujo() {
         initComponents();
-        this.T1 = new tronco(119, 130, true, true);
-        this.T2 = new tronco(119, 70, false, false);
-        this.T3 = new tronco(159, 190, true, false);
-        this.J1 = new Jugador(219, 510, Color.BLACK);
+        troncos = new ArrayList();
+        troncos.add(createtronco(499,70, false));
+        troncos.add(createtronco(119,70, false));
+        
+        troncos.add(createtronco(119,130, true));
+        troncos.add(createtronco(360,130, true));              
+        troncos.add(createtronco(270,130, true));
+        
+        troncos.add(createtronco(159,190, false));
+        troncos.add(createtronco(300,190, false));
+        troncos.add(createtronco(480,190, false));
+        
+        
+        this.J1 = new Jugador(219, 510);
+        
         carros = new ArrayList();
         carros.add(createEnemy(219, 315, 60, 40, true));
         carros.add(createEnemy(0, 315, 60, 40, true));
+        
         carros.add(createEnemy(0, 380, 60, 40, false));
         carros.add(createEnemy(325, 380, 60, 40, false));
+        
         carros.add(createEnemy(200, 450, 60, 40, true));
         carros.add(createEnemy(499, 450, 60, 40, true));
         animaciones = 0;
@@ -121,41 +134,80 @@ public final class dibujo extends javax.swing.JPanel {
             if (this.J1.getY() <= 47) {
                 JOptionPane.showMessageDialog(null, "Has ganado");
                 System.exit(0);
+                //this.J1.setX(219);
+                //this.J1.setY(510);
+                //for (int i = 0; i < troncos.size(); i++) {
+                    //this.troncos.get(i).setVelocidad((float) (this.troncos.get(i).getVelocidad() + 0.1f));
+                //}
+                //for (int j = 0; j < carros.size(); j++) {
+                    //this.carros.get(j).setVelocidad((float) (this.carros.get(j).getVelocidad() + 0.1f));
+                //}
             }
 
-            if (this.J1.getY() < 0) {
-                this.J1.setY(559);
+            if (this.J1.getY() > 500) {
+                this.J1.setY(500);
             }
 
         }
     }
 
+    public void subidaTronco(Graphics g) {
+        if (count == 0) {
+            for (int i = 0; i < troncos.size(); i++) {
+                if (J1.getColision().intersects(troncos.get(i).getColision())){                                                   
+                    J1.setX((int)troncos.get(i).getX());
+                    J1.setY((int)troncos.get(i).getY());
+                } 
+                /*else if ((this.J1.getY() > 70 && this.J1.getY() < 190 && !(J1.getColision().intersects(troncos.get(i).getColision())))) {
+                    count++;
+                    J1.setDibujo(J1.getDibujom());
+                    repaint();
+                    this.carros.get(i).setBandera(false);
+                    this.troncos.get(i).setBandera(false);
+                    for (int j = 0; j < carros.size(); j++) {
+                        this.carros.get(j).setBandera(false);
+                    }
+                    for (int k = 0; k < troncos.size(); k++) {
+                        this.troncos.get(k).setBandera(false);
+                    }
+                    JOptionPane.showMessageDialog(null, "Gracias por jugar");
+                    System.exit(0);
+                }*/
+            }
+        }        
+    }
+    
     public void Colisiones(Graphics g) {
         if (count == 0) {
             for (int i = 0; i < carros.size(); i++) {
                 if (J1.getColision().intersects(carros.get(i).getColision())){               
-                count++;
-                J1.setDibujo(J1.getDibujom());
-                repaint();
-                this.carros.get(i).setBandera(false);
-                for (int j = 0; j < carros.size(); j++) {
-                    this.carros.get(j).setBandera(false);
-                }
-                JOptionPane.showMessageDialog(null, "Gracias por jugar");
-                System.exit(0);
+                    count++;
+                    J1.setDibujo(J1.getDibujom());
+                    repaint();
+                    this.carros.get(i).setBandera(false);
+                    for (int j = 0; j < carros.size(); j++) {
+                        this.carros.get(j).setBandera(false);
+                    }
+                    for (int k = 0; k < troncos.size(); k++) {
+                        this.troncos.get(k).setBandera(false);
+                    }
+                    JOptionPane.showMessageDialog(null, "Gracias por jugar");
+                    System.exit(0);
                 }  
             }            
         }
     }
-
+    
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
         fondo= new bg();
+        
         g.drawImage(this.fondo.getfondoso().getImage(), 0, 0, 500, 559, this);
-        g.drawImage(this.T3.getDibujo().getImage(), (int)this.T3.getX(), this.T3.getY(), this.T3.getAncho(), this.T3.getAlto(), this);
-        g.drawImage(this.T2.getDibujo().getImage(), (int)this.T2.getX(), this.T2.getY(), this.T2.getAncho(), this.T2.getAlto(), this);
-        g.drawImage(this.T1.getDibujo().getImage(), (int)this.T1.getX(), this.T1.getY(), this.T1.getAncho(), this.T1.getAlto(), this);
+        
+        for (int j = 0; j < troncos.size(); j++) {
+            g.drawImage(this.troncos.get(j).getDibujo().getImage(), (int)this.troncos.get(j).getX(), this.troncos.get(j).getY(), this.troncos.get(j).getAncho(), this.troncos.get(j).getAlto(), this);
+        }  
         
         for (int i = 0; i < carros.size(); i++) {
             g.drawImage(this.carros.get(i).getDibujo().getImage(), (int)this.carros.get(i).getX(), this.carros.get(i).getY(), this.carros.get(i).getAncho(), this.carros.get(i).getAlto(), this);
@@ -163,8 +215,10 @@ public final class dibujo extends javax.swing.JPanel {
        
         if (this.J1 != null) {
             g.drawImage(this.J1.getDibujo().getImage(), this.J1.getX(), this.J1.getY(), this.J1.getAncho(), this.J1.getAlto(), this);
+            subidaTronco(g);
             Colisiones(g);
         }
+        
         repaint();
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables

@@ -5,9 +5,6 @@
  */
 package modelos;
 
-import frogger.dibujo;
-import java.awt.Color;
-import java.awt.Image;
 import java.awt.Rectangle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -30,6 +27,7 @@ public class Enemigo extends Thread{
     float xd;
     ImageIcon Dibujo;
     boolean orientacion;
+    private float velocidad = 1;
     
     public Enemigo() {
     }
@@ -129,7 +127,7 @@ public class Enemigo extends Thread{
                 if (this.x + this.xa < 0)
                     setX(500);
                 
-                this.setX(this.getX() + this.xa);
+                this.setX((this.getX() + this.xa));
                 }
             try {
                 sleep(5);
@@ -139,6 +137,20 @@ public class Enemigo extends Thread{
             }
         }
         
+    }
+
+    /**
+     * @return the velocidad
+     */
+    public float getVelocidad() {
+        return velocidad;
+    }
+
+    /**
+     * @param velocidad the velocidad to set
+     */
+    public void setVelocidad(float velocidad) {
+        this.velocidad = velocidad;
     }
 
     

@@ -18,7 +18,6 @@ public class Jugador {
     private int y;
     private int alto = 40;
     private int ancho = 60;
-    private Color fondo;
     private Rectangle colision;
     ImageIcon dibujo;
     ImageIcon dibujom;
@@ -42,10 +41,9 @@ public class Jugador {
     public Jugador() {
     }
 
-    public Jugador(int x, int y, Color fondo) {
+    public Jugador(int x, int y) {
         this.x = x;
         this.y = y;
-        this.fondo = fondo;
         this.dibujom=new ImageIcon(getClass().getResource("../imagenes/graphics-game-sprites.png"));
         this.dibujo=new ImageIcon(getClass().getResource("../imagenes/ini arriba.png"));
     }
@@ -95,15 +93,7 @@ public class Jugador {
     public void setAncho(int ancho) {
         this.ancho = ancho;
     }
-
-    public Color getFondo() {
-        return fondo;
-    }
-
-    public void setFondo(Color fondo) {
-        this.fondo = fondo;
-    }   
-
+  
     /**
      * @return the Rutasar
      */

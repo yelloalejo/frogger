@@ -6,6 +6,7 @@
 package modelos;
 
 import java.awt.Color;
+import java.awt.Rectangle;
 import static java.lang.Thread.sleep;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -16,32 +17,23 @@ import javax.swing.ImageIcon;
  * @author diegoalejandromarulandamarin
  */
 public class tronco extends Thread {
-    
+    private float velocidad =1;
     private float x;
     private int y;
     private int alto;
     private int ancho;
     boolean bandera;
+    private Rectangle colision;
     float xa;
     float xd;
-    ImageIcon Dibujo;
-    boolean orientation;
-    boolean size;
-    
+    ImageIcon Dibujo = new ImageIcon(getClass().getResource("../imagenes/troncopeque.png"));
+    boolean orientation;    
     public tronco() {
     }
 
-    public tronco(int x, int y,boolean isSmall, boolean rightMove) {
-        if (isSmall) {
-            this.Dibujo=new ImageIcon(getClass().getResource("../imagenes/troncogran.png"));                
-            this.ancho = 60;
-            this.alto = 40;
-        }
-        else{
-            this.Dibujo=new ImageIcon(getClass().getResource("../imagenes/troncopeque.png"));            
-            this.ancho = 120;
-            this.alto = 40;
-        }
+    public tronco(int x, int y, boolean rightMove) {           
+        this.ancho = 60;
+        this.alto = 40;        
         this.x = x;
         this.y = y;
         this.bandera=true;
@@ -108,7 +100,8 @@ public class tronco extends Thread {
 
     @Override
     public void run() {
-        while(this.bandera == true){                		                                
+        while(this.bandera == true){
+            this.setColision(new Rectangle((int)x,y,ancho,alto));
             if (orientation == true){
                 if (this.x + xd > 500)
                     setX(0);
@@ -129,5 +122,33 @@ public class tronco extends Thread {
             }
         }
         
+    }
+
+    /**
+     * @return the colision
+     */
+    public Rectangle getColision() {
+        return colision;
+    }
+
+    /**
+     * @param colision the colision to set
+     */
+    public void setColision(Rectangle colision) {
+        this.colision = colision;
+    }
+
+    /**
+     * @return the velocidad
+     */
+    public float getVelocidad() {
+        return velocidad;
+    }
+
+    /**
+     * @param velocidad the velocidad to set
+     */
+    public void setVelocidad(float velocidad) {
+        this.velocidad = velocidad;
     }
 }
