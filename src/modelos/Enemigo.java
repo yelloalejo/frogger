@@ -27,7 +27,7 @@ public class Enemigo extends Thread{
     float xd;
     ImageIcon Dibujo;
     boolean orientacion;
-    private float velocidad = 1;
+    private float velocidad = 0;
     boolean isCarro = false;
     
     public Enemigo() {
@@ -124,14 +124,14 @@ public class Enemigo extends Thread{
                     if (this.x + xd > 500)
                         setX(0);
                 
-                    this.setX(this.getX() + this.xd);
+                    this.setX(this.getX() + this.xd + velocidad);
                     }
                 if (!orientacion) {
                     this.Dibujo=new ImageIcon(getClass().getResource("../imagenes/carro1.png"));
                     if (this.x + this.xa < 0)
                         setX(500);
                 
-                    this.setX((this.getX() + this.xa));
+                    this.setX((this.getX() + this.xa - velocidad));
                     }
             }else{
                 if (orientacion){
@@ -139,14 +139,14 @@ public class Enemigo extends Thread{
                     if (this.x + xd > 500)
                         setX(0);
                 
-                    this.setX(this.getX() + this.xd);
+                    this.setX(this.getX() + this.xd + velocidad);
                     }
                 if (!orientacion) {
                     this.Dibujo=new ImageIcon(getClass().getResource("../imagenes/serpiente1.png"));
                     if (this.x + this.xa < 0)
                         setX(500);
                 
-                    this.setX((this.getX() + this.xa));
+                    this.setX((this.getX() + this.xa) - velocidad);
                     }
             }
             try {

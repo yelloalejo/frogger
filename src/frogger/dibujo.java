@@ -155,12 +155,9 @@ public final class dibujo extends javax.swing.JPanel {
                 puntos+= 100;
                 this.J1.setX(219);
                 this.J1.setY(520);
-                //for (int i = 0; i < troncos.size(); i++) {
-                    //this.troncos.get(i).setVelocidad((float) (this.troncos.get(i).getVelocidad() + 0.1f));
-                //}
-                //for (int j = 0; j < carros.size(); j++) {
-                    //this.carros.get(j).setVelocidad((float) (this.carros.get(j).getVelocidad() + 0.1f));
-                //}
+                for (int j = 0; j < enemigos.size(); j++) {
+                    this.enemigos.get(j).setVelocidad(this.enemigos.get(j).getVelocidad() + 0.2f);
+                }
             }
 
             if (this.J1.getY() > 500) {
