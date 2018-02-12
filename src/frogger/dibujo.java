@@ -5,6 +5,10 @@
  */
 package frogger;
 
+import java.io.*;
+import java.awt.Color;
+import java.applet.AudioClip;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.util.ArrayList;
 import javax.swing.ImageIcon;
@@ -12,7 +16,6 @@ import javax.swing.JOptionPane;
 import modelos.Enemigo;
 import modelos.Jugador;
 import modelos.bg;
-import modelos.tronco;
 import modelos.vida;
 
 /**
@@ -20,62 +23,67 @@ import modelos.vida;
  * @author diegoalejandromarulandamarin
  */
 public final class dibujo extends javax.swing.JPanel {
-        
+    
+    AudioClip sonido;
+    AudioClip muerte;
+    String jugador;
+    String FILENAME = "/Users/diegoalejandromarulandamarin/Desktop/Prog 2/frogger/src/puntajes/puntajes.txt";
     Jugador J1;
     bg fondo;
-    vida corazon;
+    int puntos = 0;
     int animaciones;
     int count = 0;
+    int puntajeactual;
     ArrayList<vida> corazones;
-    ArrayList<Enemigo> carros;
-    ArrayList<tronco> troncos;
+    ArrayList<Enemigo> enemigos;
     int vidas = -1;
+    public int getPuntos(){
+        return puntos;
+    }
+    public void setPuntos(int puntos){
+        this.puntos = puntos;
+    }
     public vida crearcorazon(int x, int y, int ancho, int alto){
         vida corazon = new vida(x,y,ancho,alto);
         return corazon;
     }
     
-    public Enemigo createEnemy(int x, int y, int width, int heigth,boolean orientation) {
-        Enemigo auto = new Enemigo(x,y,width, heigth, orientation);
-        return auto;
+    public Enemigo createEnemy(int x, int y, int width, int heigth,boolean orientation, boolean isCarro) {
+        Enemigo enemigo = new Enemigo(x,y,width, heigth, orientation, isCarro);
+        return enemigo;
     }
-    
-    public tronco createtronco(int x, int y, boolean orientation) {
-        tronco tronquito = new tronco(x,y, orientation);
-        return tronquito;
-    }
-    
     public dibujo() {
+        this.sonido = java.applet.Applet.newAudioClip(getClass().getResource("../sonido/fondo.wav"));
+        this.muerte = java.applet.Applet.newAudioClip(getClass().getResource("../sonido/muerte.wav"));
         initComponents();
         corazones = new ArrayList();
-        corazones.add(crearcorazon(465,0,34,30));
-        corazones.add(crearcorazon(430,0,34,30));
         corazones.add(crearcorazon(395,0,34,30));
-        
-        troncos = new ArrayList();
-        troncos.add(createtronco(499,70, false));
-        troncos.add(createtronco(119,70, false));
-        
-        troncos.add(createtronco(119,130, true));
-        troncos.add(createtronco(360,130, true));              
-        troncos.add(createtronco(270,130, true));
-        
-        troncos.add(createtronco(159,190, false));
-        troncos.add(createtronco(300,190, false));
-        troncos.add(createtronco(480,190, false));        
-        
+        corazones.add(crearcorazon(430,0,34,30));
+        corazones.add(crearcorazon(465,0,34,30));
+              
         this.J1 = new Jugador(219, 510);
+                        
+        enemigos = new ArrayList();
         
-        carros = new ArrayList();
-        carros.add(createEnemy(219, 315, 60, 40, true));
-        carros.add(createEnemy(0, 315, 60, 40, true));
+        enemigos.add(createEnemy(499,70,60,40,false,false));
+        enemigos.add(createEnemy(139,70,60,40,false,false));
         
-        carros.add(createEnemy(0, 380, 60, 40, false));
-        carros.add(createEnemy(325, 380, 60, 40, false));
+        enemigos.add(createEnemy(119,130,60,40,true,false));
+        enemigos.add(createEnemy(360,130,60,40,true,false));
         
-        carros.add(createEnemy(200, 450, 60, 40, true));
-        carros.add(createEnemy(499, 450, 60, 40, true));
+        enemigos.add(createEnemy(159,190,60,40,false,false));
+        enemigos.add(createEnemy(400,190,60,40,false,false));
+        
+        enemigos.add(createEnemy(219, 315, 60, 40, true, true));
+        enemigos.add(createEnemy(0, 315, 60, 40, true, true));
+        
+        enemigos.add(createEnemy(0, 380, 60, 40, false, true));
+        enemigos.add(createEnemy(325, 380, 60, 40, false, true));
+        
+        enemigos.add(createEnemy(100, 450, 60, 40, true, true));
+        enemigos.add(createEnemy(399, 450, 60, 40, true, true));
         animaciones = 0;
+        sonido.loop();
     }
     
     
@@ -111,24 +119,24 @@ public final class dibujo extends javax.swing.JPanel {
             switch (D) {
                 case 1:
                     this.J1.setDibujo(new ImageIcon(getClass().getResource(this.J1.getRutasar()[animaciones])));
-                    this.J1.setY(this.J1.getY() - 63);
+                    this.J1.setY(this.J1.getY() - 60);
                     animaciones++;
                     repaint();
                     this.J1.setDibujo(new ImageIcon(getClass().getResource(this.J1.getRutasar()[animaciones])));                                
                     break;
                 case 2:
                     this.J1.setDibujo(new ImageIcon(getClass().getResource(this.J1.getRutasab()[animaciones])));
-                    this.J1.setY(this.J1.getY() + 63);
+                    this.J1.setY(this.J1.getY() + 60);
                     animaciones++;
                     break;
                 case 3:
                     this.J1.setDibujo(new ImageIcon(getClass().getResource(this.J1.getRutasiz()[animaciones])));
-                    this.J1.setX(this.J1.getX() - 63);
+                    this.J1.setX(this.J1.getX() - 60);
                     animaciones++;
                     break;
                 case 4:
                     this.J1.setDibujo(new ImageIcon(getClass().getResource(this.J1.getRutasde()[animaciones])));
-                    this.J1.setX(this.J1.getX() + 63);
+                    this.J1.setX(this.J1.getX() + 60);
                     animaciones++;
                     break;
                 default:
@@ -144,10 +152,9 @@ public final class dibujo extends javax.swing.JPanel {
             }
 
             if (this.J1.getY() <= 47) {
-                JOptionPane.showMessageDialog(null, "Has ganado");
-                System.exit(0);
-                //this.J1.setX(219);
-                //this.J1.setY(510);
+                puntos+= 100;
+                this.J1.setX(219);
+                this.J1.setY(520);
                 //for (int i = 0; i < troncos.size(); i++) {
                     //this.troncos.get(i).setVelocidad((float) (this.troncos.get(i).getVelocidad() + 0.1f));
                 //}
@@ -162,37 +169,11 @@ public final class dibujo extends javax.swing.JPanel {
 
         }
     }
-
-    public void subidaTronco(Graphics g) {
-        if (count == 0) {
-            for (int i = 0; i < troncos.size(); i++) {
-                if (J1.getColision().intersects(troncos.get(i).getColision())){                                                   
-                    J1.setX((int)troncos.get(i).getX());
-                    J1.setY((int)troncos.get(i).getY());
-                } 
-                /*else if ((this.J1.getY() > 70 && this.J1.getY() < 190 && !(J1.getColision().intersects(troncos.get(i).getColision())))) {
-                    count++;
-                    J1.setDibujo(J1.getDibujom());
-                    repaint();
-                    this.carros.get(i).setBandera(false);
-                    this.troncos.get(i).setBandera(false);
-                    for (int j = 0; j < carros.size(); j++) {
-                        this.carros.get(j).setBandera(false);
-                    }
-                    for (int k = 0; k < troncos.size(); k++) {
-                        this.troncos.get(k).setBandera(false);
-                    }
-                    JOptionPane.showMessageDialog(null, "Gracias por jugar");
-                    System.exit(0);
-                }*/
-            }
-        }        
-    }
     
     public void Colisiones(Graphics g) {
         if (count == 0) {
-            for (int i = 0; i < carros.size(); i++) {
-                if (J1.getColision().intersects(carros.get(i).getColision())){                      
+            for (int i = 0; i < enemigos.size(); i++) {
+                if (J1.getColision().intersects(enemigos.get(i).getColision())){                      
                     count++;
                     if (vidas != 2) {
                         vidas+= 1;
@@ -204,12 +185,45 @@ public final class dibujo extends javax.swing.JPanel {
                     else{
                     J1.setDibujo(J1.getDibujom());
                     repaint();
-                    this.carros.get(i).setBandera(false);
-                    for (int j = 0; j < carros.size(); j++) {
-                        this.carros.get(j).setBandera(false);
+                    this.enemigos.get(i).setBandera(false);
+                    for (int j = 0; j < enemigos.size(); j++) {
+                        this.enemigos.get(j).setBandera(false);
                     }
-                    for (int k = 0; k < troncos.size(); k++) {
-                        this.troncos.get(k).setBandera(false);
+                    sonido.stop();
+                    muerte.play();                    
+                    BufferedWriter bw = null;
+                    FileWriter fw = null;
+                    
+                    try (BufferedReader br = new BufferedReader(new FileReader(FILENAME))) {
+
+			String sCurrentLine;
+
+			while ((sCurrentLine = br.readLine()) != null) {
+                            puntajeactual = Integer.parseInt(sCurrentLine);
+			}
+
+                    }catch (IOException e) {
+			e.printStackTrace();
+                    }
+                    if (puntajeactual < puntos) {                                                                    
+                        try {
+                            String marcador = Integer.toString(puntos);
+                            fw = new FileWriter(FILENAME);
+                            bw = new BufferedWriter(fw);
+                            bw.write(marcador);
+                        }catch (IOException e) {
+                            e.printStackTrace();
+                        }finally {
+                            try {
+                                if (bw != null)
+                                    bw.close();
+                                if (fw != null)
+                                    fw.close();
+                            }
+                            catch (IOException ex) {
+                                ex.printStackTrace();
+                            }
+                        }
                     }
                     JOptionPane.showMessageDialog(null, "Gracias por jugar");
                     System.exit(0);
@@ -228,21 +242,19 @@ public final class dibujo extends javax.swing.JPanel {
         
         for (int k = 0; k < corazones.size(); k++) {
             g.drawImage(this.corazones.get(k).getVida().getImage(), this.corazones.get(k).getX(), this.corazones.get(k).getY(), this.corazones.get(k).getAncho(), this.corazones.get(k).getAlto(), this);
-        }
+        }              
         
-        for (int j = 0; j < troncos.size(); j++) {
-            g.drawImage(this.troncos.get(j).getDibujo().getImage(), (int)this.troncos.get(j).getX(), this.troncos.get(j).getY(), this.troncos.get(j).getAncho(), this.troncos.get(j).getAlto(), this);
-        }  
-        
-        for (int i = 0; i < carros.size(); i++) {
-            g.drawImage(this.carros.get(i).getDibujo().getImage(), (int)this.carros.get(i).getX(), this.carros.get(i).getY(), this.carros.get(i).getAncho(), this.carros.get(i).getAlto(), this);
+        for (int i = 0; i < enemigos.size(); i++) {
+            g.drawImage(this.enemigos.get(i).getDibujo().getImage(), (int)this.enemigos.get(i).getX(), this.enemigos.get(i).getY(), this.enemigos.get(i).getAncho(), this.enemigos.get(i).getAlto(), this);
         }
        
         if (this.J1 != null) {
             g.drawImage(this.J1.getDibujo().getImage(), this.J1.getX(), this.J1.getY(), this.J1.getAncho(), this.J1.getAlto(), this);
-            subidaTronco(g);
             Colisiones(g);
         }
+        g.setColor(Color.white);
+        g.setFont(new Font("Silom", Font.BOLD,28));
+        g.drawString("Puntos: " + puntos, 5, 540);
         
         repaint();
     }

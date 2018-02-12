@@ -28,11 +28,12 @@ public class Enemigo extends Thread{
     ImageIcon Dibujo;
     boolean orientacion;
     private float velocidad = 1;
+    boolean isCarro = false;
     
     public Enemigo() {
     }
 
-    public Enemigo(int x, int y, int ancho, int alto, boolean isRight) {
+    public Enemigo(int x, int y, int ancho, int alto, boolean isRight, boolean isCarro) {
         this.x = x;
         this.y = y;
         this.alto = alto;
@@ -42,6 +43,8 @@ public class Enemigo extends Thread{
         this.xa= -1;
         this.orientacion = isRight;        
         this.start();
+        this.isCarro = isCarro;
+        
     }
     public boolean getOrientacion(){
         return orientacion;
@@ -115,20 +118,37 @@ public class Enemigo extends Thread{
     public void run() {
         while(this.bandera == true){
             this.colision = new Rectangle((int)x,y,ancho,alto);
-            if (orientacion){
-                this.Dibujo=new ImageIcon(getClass().getResource("../imagenes/carro2.png"));
-                if (this.x + xd > 500)
-                    setX(0);
+            if (isCarro) {                            
+                if (orientacion){
+                    this.Dibujo=new ImageIcon(getClass().getResource("../imagenes/carro2.png"));
+                    if (this.x + xd > 500)
+                        setX(0);
                 
-                this.setX(this.getX() + this.xd);
-                }
-            if (!orientacion) {
-                this.Dibujo=new ImageIcon(getClass().getResource("../imagenes/carro1.png"));
-                if (this.x + this.xa < 0)
-                    setX(500);
+                    this.setX(this.getX() + this.xd);
+                    }
+                if (!orientacion) {
+                    this.Dibujo=new ImageIcon(getClass().getResource("../imagenes/carro1.png"));
+                    if (this.x + this.xa < 0)
+                        setX(500);
                 
-                this.setX((this.getX() + this.xa));
-                }
+                    this.setX((this.getX() + this.xa));
+                    }
+            }else{
+                if (orientacion){
+                    this.Dibujo=new ImageIcon(getClass().getResource("../imagenes/serpiente2.png"));
+                    if (this.x + xd > 500)
+                        setX(0);
+                
+                    this.setX(this.getX() + this.xd);
+                    }
+                if (!orientacion) {
+                    this.Dibujo=new ImageIcon(getClass().getResource("../imagenes/serpiente1.png"));
+                    if (this.x + this.xa < 0)
+                        setX(500);
+                
+                    this.setX((this.getX() + this.xa));
+                    }
+            }
             try {
                 sleep(5);
             }
