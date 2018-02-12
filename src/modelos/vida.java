@@ -19,11 +19,14 @@ public class vida {
     private int ancho;
     private int alto;
 
-    public vida(int x,int y,int ancho,int alto) {
+    public vida(boolean life,int x,int y,int ancho,int alto) {
         this.x = x;
         this.y = y;
         this.ancho = ancho;
         this.alto = alto;
+        if (!life) {
+            this.vida = vidaper;
+        }
     }
 
     /**

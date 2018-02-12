@@ -5,6 +5,7 @@
  */
 package frogger;
 
+import java.util.Random;
 import java.io.*;
 import java.awt.Color;
 import java.applet.AudioClip;
@@ -17,6 +18,7 @@ import modelos.Enemigo;
 import modelos.Jugador;
 import modelos.bg;
 import modelos.vida;
+        
 
 /**
  *
@@ -28,6 +30,7 @@ public final class dibujo extends javax.swing.JPanel {
     AudioClip muerte;
     ImageIcon mosca;
     String jugador;
+    int bonus= (int)(Math.random()* 2) + 1;
     String FILENAME = "/Users/diegoalejandromarulandamarin/Desktop/Prog 2/frogger/src/puntajes/puntajes.txt";
     Jugador J1;
     bg fondo;
@@ -35,23 +38,24 @@ public final class dibujo extends javax.swing.JPanel {
     int animaciones;
     int count = 0;
     int lvl = 1;
+    int contador =0;
     int puntajeactual;
     ArrayList<vida> corazones;
     ArrayList<Enemigo> enemigos;
-    int vidas = -1;
+    int vidas = 2;
     public int getPuntos(){
         return puntos;
     }
     public void setPuntos(int puntos){
         this.puntos = puntos;
     }
-    public vida crearcorazon(int x, int y, int ancho, int alto){
-        vida corazon = new vida(x,y,ancho,alto);
+    public vida crearcorazon(boolean life,int x, int y, int ancho, int alto){
+        vida corazon = new vida(life, x,y,ancho,alto);
         return corazon;
     }
     
-    public Enemigo createEnemy(int x, int y, int width, int heigth,boolean orientation, boolean isCarro) {
-        Enemigo enemigo = new Enemigo(x,y,width, heigth, orientation, isCarro);
+    public Enemigo createEnemy(int x, int y, int width, int heigth,boolean orientation, boolean isCarro, int isBonus) {
+        Enemigo enemigo = new Enemigo(x,y,width, heigth, orientation, isCarro, isBonus);
         return enemigo;
     }
     public dibujo() {
@@ -60,31 +64,31 @@ public final class dibujo extends javax.swing.JPanel {
         this.muerte = java.applet.Applet.newAudioClip(getClass().getResource("../sonido/muerte.wav"));
         initComponents();
         corazones = new ArrayList();
-        corazones.add(crearcorazon(395,0,34,30));
-        corazones.add(crearcorazon(430,0,34,30));
-        corazones.add(crearcorazon(465,0,34,30));
+        corazones.add(crearcorazon(false,395,0,34,30));
+        corazones.add(crearcorazon(true,430,0,34,30));
+        corazones.add(crearcorazon(true,465,0,34,30));
               
         this.J1 = new Jugador(219, 510);
                         
         enemigos = new ArrayList();
         
-        enemigos.add(createEnemy(499,70,60,40,false,false));
-        enemigos.add(createEnemy(139,70,60,40,false,false));
+        enemigos.add(createEnemy(499,70,60,40,false,false,2));
+        enemigos.add(createEnemy(139,70,60,40,false,false,2));
         
-        enemigos.add(createEnemy(119,130,60,40,true,false));
-        enemigos.add(createEnemy(360,130,60,40,true,false));
+        enemigos.add(createEnemy(119,130,60,40,true,false,2));
+        enemigos.add(createEnemy(360,130,60,40,true,false,2));
         
-        enemigos.add(createEnemy(159,190,60,40,false,false));
-        enemigos.add(createEnemy(400,190,60,40,false,false));
+        enemigos.add(createEnemy(159,190,60,40,false,false,2));
+        enemigos.add(createEnemy(400,190,60,40,false,false,2));
         
-        enemigos.add(createEnemy(219, 315, 60, 40, true, true));
-        enemigos.add(createEnemy(0, 315, 60, 40, true, true));
+        enemigos.add(createEnemy(219, 315, 60, 40, true, true,bonus));
+        enemigos.add(createEnemy(0, 315, 60, 40, true, true,2));
         
-        enemigos.add(createEnemy(0, 380, 60, 40, false, true));
-        enemigos.add(createEnemy(325, 380, 60, 40, false, true));
+        enemigos.add(createEnemy(0, 380, 60, 40, false, true,2));
+        enemigos.add(createEnemy(325, 380, 60, 40, false, true,2));
         
-        enemigos.add(createEnemy(100, 450, 60, 40, true, true));
-        enemigos.add(createEnemy(399, 450, 60, 40, true, true));
+        enemigos.add(createEnemy(100, 450, 60, 40, true, true,2));
+        enemigos.add(createEnemy(399, 450, 60, 40, true, true,2));
         animaciones = 0;
         sonido.loop();
         try (BufferedReader br = new BufferedReader(new FileReader(FILENAME))) {
@@ -184,48 +188,56 @@ public final class dibujo extends javax.swing.JPanel {
             for (int i = 0; i < enemigos.size(); i++) {
                 if (J1.getColision().intersects(enemigos.get(i).getColision())){                      
                     count++;
-                    if (vidas != 2) {
-                        vidas+= 1;
-                        this.J1.setX(219);
-                        this.J1.setY(510);
-                        this.corazones.get(vidas).setVida(this.corazones.get(vidas).getVidaper());
-                        count = 0;
-                    }
-                    else{
-                    J1.setDibujo(J1.getDibujom());
-                    repaint();
-                    this.enemigos.get(i).setBandera(false);
-                    for (int j = 0; j < enemigos.size(); j++) {
-                        this.enemigos.get(j).setBandera(false);
-                    }
-                    sonido.stop();
-                    muerte.play();                    
-                    BufferedWriter bw = null;
-                    FileWriter fw = null;
+                    if(enemigos.get(i).getIsBonus() == 1){
+                        if (vidas > 0) {
+                            vidas-= 1;
+                            this.J1.setX(219);
+                            this.J1.setY(510);
+                            this.corazones.get(vidas).setVida(this.corazones.get(vidas).getVidaper());
+                            count = 0;
+                        }
+                        else{
+                        J1.setDibujo(J1.getDibujom());
+                        repaint();
+                        this.enemigos.get(i).setBandera(false);
+                        for (int j = 0; j < enemigos.size(); j++) {
+                            this.enemigos.get(j).setBandera(false);
+                        }
+                        sonido.stop();
+                        muerte.play();                    
+                        BufferedWriter bw = null;
+                        FileWriter fw = null;
                                         
-                    if (puntajeactual < puntos) {                                                                    
-                        try {
-                            String marcador = Integer.toString(puntos);
-                            fw = new FileWriter(FILENAME);
-                            bw = new BufferedWriter(fw);
-                            bw.write(marcador);
-                        }catch (IOException e) {
-                            e.printStackTrace();
-                        }finally {
+                        if (puntajeactual < puntos) {                                                                    
                             try {
-                                if (bw != null)
-                                    bw.close();
-                                if (fw != null)
-                                    fw.close();
-                            }
-                            catch (IOException ex) {
-                                ex.printStackTrace();
+                                String marcador = Integer.toString(puntos);
+                                fw = new FileWriter(FILENAME);
+                                bw = new BufferedWriter(fw);
+                                bw.write(marcador);
+                            }catch (IOException e) {
+                                e.printStackTrace();
+                            }finally {
+                                try {
+                                    if (bw != null)
+                                        bw.close();
+                                    if (fw != null)
+                                        fw.close();
+                                }
+                                catch (IOException ex) {
+                                    ex.printStackTrace();
+                                }
                             }
                         }
+                        JOptionPane.showMessageDialog(null, "Gracias por jugar");
+                        System.exit(0);
                     }
-                    JOptionPane.showMessageDialog(null, "Gracias por jugar");
-                    System.exit(0);
-                    }  
+                    }
+                    if(contador == 0 && (this.enemigos.get(i).getIsBonus() == 2)){
+                        vidas+=1;
+                        this.corazones.get(i).setVida(this.corazones.get(i).getVida());
+                        contador++; 
+                        count = 0;
+                    }                      
                 }
             }
         }
@@ -233,6 +245,7 @@ public final class dibujo extends javax.swing.JPanel {
     
     @Override
     protected void paintComponent(Graphics g) {
+        
         super.paintComponent(g);
         fondo= new bg();        
         

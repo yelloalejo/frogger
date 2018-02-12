@@ -94,11 +94,8 @@ public class tablero extends javax.swing.JFrame {
     }//GEN-LAST:event_dibujo1KeyPressed
 
     private void formKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_formKeyPressed
-        if(evt.getKeyCode()==KeyEvent.VK_UP){
-            
-            
-            dibujo1.Direcciones(1);
-            
+        if(evt.getKeyCode()==KeyEvent.VK_UP){                        
+            dibujo1.Direcciones(1);            
         }
         
         if(evt.getKeyCode()==KeyEvent.VK_DOWN){
@@ -114,7 +111,10 @@ public class tablero extends javax.swing.JFrame {
         if(evt.getKeyCode()==KeyEvent.VK_RIGHT){
                         dibujo1.Direcciones(4);
 
-        }        // TODO add your handling code here:
+        }
+        if(evt.getKeyCode()==KeyEvent.VK_SPACE){
+                        dibujo1.Direcciones(5);
+        }    
     }//GEN-LAST:event_formKeyPressed
 
     

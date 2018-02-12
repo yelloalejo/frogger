@@ -29,11 +29,12 @@ public class Enemigo extends Thread{
     boolean orientacion;
     private float velocidad = 0;
     boolean isCarro = false;
+    int isBonus = 1;
     
     public Enemigo() {
     }
 
-    public Enemigo(int x, int y, int ancho, int alto, boolean isRight, boolean isCarro) {
+    public Enemigo(int x, int y, int ancho, int alto, boolean isRight, boolean isCarro, int isBonus) {
         this.x = x;
         this.y = y;
         this.alto = alto;
@@ -44,6 +45,7 @@ public class Enemigo extends Thread{
         this.orientacion = isRight;        
         this.start();
         this.isCarro = isCarro;
+        this.isBonus = isBonus;
         
     }
     public boolean getOrientacion(){
@@ -88,6 +90,11 @@ public class Enemigo extends Thread{
         return ancho;
     }
 
+    public int getIsBonus() {
+        return isBonus;
+    }
+    
+    
     public void setAncho(int ancho) {
         this.ancho = ancho;
     }
@@ -120,14 +127,22 @@ public class Enemigo extends Thread{
             this.colision = new Rectangle((int)x,y,ancho,alto);
             if (isCarro) {                            
                 if (orientacion){
-                    this.Dibujo=new ImageIcon(getClass().getResource("../imagenes/carro2.png"));
+                    if (isBonus == 1) {
+                        this.Dibujo=new ImageIcon(getClass().getResource("../imagenes/bonus2.png"));
+                    }else{
+                        this.Dibujo=new ImageIcon(getClass().getResource("../imagenes/carro2.png"));
+                    }                    
                     if (this.x + xd > 500)
                         setX(0);
                 
                     this.setX(this.getX() + this.xd + velocidad);
                     }
                 if (!orientacion) {
-                    this.Dibujo=new ImageIcon(getClass().getResource("../imagenes/carro1.png"));
+                    if (isBonus == 1) {
+                        this.Dibujo=new ImageIcon(getClass().getResource("../imagenes/bonus.png"));
+                    }else{
+                        this.Dibujo=new ImageIcon(getClass().getResource("../imagenes/carro1.png"));
+                    }                    
                     if (this.x + this.xa < 0)
                         setX(500);
                 
