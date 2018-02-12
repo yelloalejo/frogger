@@ -43,6 +43,9 @@ public class tablero extends javax.swing.JFrame {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 dibujo1KeyPressed(evt);
             }
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                dibujo1KeyReleased(evt);
+            }
         });
 
         javax.swing.GroupLayout dibujo1Layout = new javax.swing.GroupLayout(dibujo1);
@@ -116,6 +119,10 @@ public class tablero extends javax.swing.JFrame {
 
         }        // TODO add your handling code here:
     }//GEN-LAST:event_formKeyPressed
+
+    private void dibujo1KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_dibujo1KeyReleased
+        // TODO add your handling code here:
+    }//GEN-LAST:event_dibujo1KeyReleased
 
     
     /**

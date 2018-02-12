@@ -22,20 +22,15 @@ public class Jugador {
     ImageIcon dibujom;
     
     private String[] Rutasar = {"../imagenes/ini arriba.png", 
-        "../imagenes/salto arriba.png",
-        "../imagenes/ini arriba.png"};
-    
+        "../imagenes/salto arriba.png"};
     private String Rutasab[]={"../imagenes/inicial abajo.png",
-        "../imagenes/salto abajo.png",
-        "../imagenes/inicial abajo.png"};
+        "../imagenes/salto abajo.png"};
     
     private String Rutasiz[]={"../imagenes/ini izq.png",
-        "../imagenes/salto izq.png",
-        "../imagenes/ini izq.png"};
+        "../imagenes/salto izq.png"};
     
     private String Rutasde[]={"../imagenes/ini der.png",
-        "../imagenes/salto der.png",
-        "../imagenes/ini der.png"};
+        "../imagenes/salto der.png"};
 
     public Jugador() {
     }

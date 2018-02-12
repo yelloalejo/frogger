@@ -31,7 +31,6 @@ public final class dibujo extends javax.swing.JPanel {
     Jugador J1;
     bg fondo;
     int puntos = 0;
-    int animaciones;
     int count = 0;
     int puntajeactual;
     ArrayList<vida> corazones;
@@ -82,7 +81,6 @@ public final class dibujo extends javax.swing.JPanel {
         
         enemigos.add(createEnemy(100, 450, 60, 40, true, true));
         enemigos.add(createEnemy(399, 450, 60, 40, true, true));
-        animaciones = 0;
         sonido.loop();
     }
     
@@ -112,32 +110,23 @@ public final class dibujo extends javax.swing.JPanel {
 
         if (J1 != null) {
 
-            if (this.animaciones == 2) {
-                this.animaciones = 0;
-            }
-
             switch (D) {
                 case 1:
-                    this.J1.setDibujo(new ImageIcon(getClass().getResource(this.J1.getRutasar()[animaciones])));
+                    this.J1.setDibujo(new ImageIcon(getClass().getResource(this.J1.getRutasar()[0])));
                     this.J1.setY(this.J1.getY() - 60);
-                    animaciones++;
                     repaint();
-                    this.J1.setDibujo(new ImageIcon(getClass().getResource(this.J1.getRutasar()[animaciones])));                                
                     break;
                 case 2:
-                    this.J1.setDibujo(new ImageIcon(getClass().getResource(this.J1.getRutasab()[animaciones])));
+                    this.J1.setDibujo(new ImageIcon(getClass().getResource(this.J1.getRutasab()[0])));
                     this.J1.setY(this.J1.getY() + 60);
-                    animaciones++;
                     break;
                 case 3:
-                    this.J1.setDibujo(new ImageIcon(getClass().getResource(this.J1.getRutasiz()[animaciones])));
+                    this.J1.setDibujo(new ImageIcon(getClass().getResource(this.J1.getRutasiz()[0])));
                     this.J1.setX(this.J1.getX() - 60);
-                    animaciones++;
                     break;
                 case 4:
-                    this.J1.setDibujo(new ImageIcon(getClass().getResource(this.J1.getRutasde()[animaciones])));
+                    this.J1.setDibujo(new ImageIcon(getClass().getResource(this.J1.getRutasde()[0])));
                     this.J1.setX(this.J1.getX() + 60);
-                    animaciones++;
                     break;
                 default:
                     break;
