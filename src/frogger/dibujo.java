@@ -26,6 +26,7 @@ public final class dibujo extends javax.swing.JPanel {
     
     AudioClip sonido;
     AudioClip muerte;
+    ImageIcon mosca;
     String jugador;
     String FILENAME = "/Users/diegoalejandromarulandamarin/Desktop/Prog 2/frogger/src/puntajes/puntajes.txt";
     Jugador J1;
@@ -33,6 +34,7 @@ public final class dibujo extends javax.swing.JPanel {
     int puntos = 0;
     int animaciones;
     int count = 0;
+    int lvl = 1;
     int puntajeactual;
     ArrayList<vida> corazones;
     ArrayList<Enemigo> enemigos;
@@ -53,6 +55,7 @@ public final class dibujo extends javax.swing.JPanel {
         return enemigo;
     }
     public dibujo() {
+        this.mosca = new ImageIcon(getClass().getResource("../imagenes/mosca.png"));
         this.sonido = java.applet.Applet.newAudioClip(getClass().getResource("../sonido/fondo.wav"));
         this.muerte = java.applet.Applet.newAudioClip(getClass().getResource("../sonido/muerte.wav"));
         initComponents();
@@ -84,6 +87,14 @@ public final class dibujo extends javax.swing.JPanel {
         enemigos.add(createEnemy(399, 450, 60, 40, true, true));
         animaciones = 0;
         sonido.loop();
+        try (BufferedReader br = new BufferedReader(new FileReader(FILENAME))) {
+            String sCurrentLine;
+            while ((sCurrentLine = br.readLine()) != null) {
+                puntajeactual = Integer.parseInt(sCurrentLine);
+            }
+        }catch (IOException e) {
+            e.printStackTrace();
+        }
     }
     
     
@@ -153,6 +164,7 @@ public final class dibujo extends javax.swing.JPanel {
 
             if (this.J1.getY() <= 47) {
                 puntos+= 100;
+                lvl+=1;
                 this.J1.setX(219);
                 this.J1.setY(520);
                 for (int j = 0; j < enemigos.size(); j++) {
@@ -190,18 +202,7 @@ public final class dibujo extends javax.swing.JPanel {
                     muerte.play();                    
                     BufferedWriter bw = null;
                     FileWriter fw = null;
-                    
-                    try (BufferedReader br = new BufferedReader(new FileReader(FILENAME))) {
-
-			String sCurrentLine;
-
-			while ((sCurrentLine = br.readLine()) != null) {
-                            puntajeactual = Integer.parseInt(sCurrentLine);
-			}
-
-                    }catch (IOException e) {
-			e.printStackTrace();
-                    }
+                                        
                     if (puntajeactual < puntos) {                                                                    
                         try {
                             String marcador = Integer.toString(puntos);
@@ -249,9 +250,15 @@ public final class dibujo extends javax.swing.JPanel {
             g.drawImage(this.J1.getDibujo().getImage(), this.J1.getX(), this.J1.getY(), this.J1.getAncho(), this.J1.getAlto(), this);
             Colisiones(g);
         }
+        g.drawImage(mosca.getImage(), 219, 0, this);        
         g.setColor(Color.white);
         g.setFont(new Font("Silom", Font.BOLD,28));
         g.drawString("Puntos: " + puntos, 5, 540);
+        g.drawString("NIVEL: " + lvl, 360, 540);
+        g.drawString((Integer.toString(puntajeactual)),75, 54);
+        g.setFont(new Font("Silom", Font.BOLD,20));
+        g.drawString(("Mejor puntuacion : "), 2, 23);
+        
         
         repaint();
     }
