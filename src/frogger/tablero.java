@@ -15,6 +15,7 @@ public class tablero extends javax.swing.JFrame {
     /**
      * Creates new form tablero
      */
+    //inicializar componentes
     public tablero() {        
         initComponents();
     }
@@ -88,7 +89,7 @@ public class tablero extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
     
     
-    
+    //evento que escucha al presionar las flechas del teclado para el ovimiento del jugador
     private void dibujo1KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_dibujo1KeyPressed
         
     }//GEN-LAST:event_dibujo1KeyPressed
@@ -144,7 +145,7 @@ public class tablero extends javax.swing.JFrame {
             java.util.logging.Logger.getLogger(tablero.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
-
+        
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {

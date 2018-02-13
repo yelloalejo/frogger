@@ -4,7 +4,7 @@
  * and open the template in the editor.
  */
 package frogger;
-
+//importacion de dependencias
 import java.util.Random;
 import java.io.*;
 import java.awt.Color;
@@ -24,6 +24,7 @@ import modelos.vida;
  *
  * @author diegoalejandromarulandamarin
  */
+//inicializacion de variables utilizadas
 public final class dibujo extends javax.swing.JPanel {
     
     AudioClip sonido;
@@ -43,21 +44,24 @@ public final class dibujo extends javax.swing.JPanel {
     ArrayList<vida> corazones;
     ArrayList<Enemigo> enemigos;
     int vidas = 2;
+    //encapsulamiento de datos
     public int getPuntos(){
         return puntos;
     }
     public void setPuntos(int puntos){
         this.puntos = puntos;
     }
+    //funcion para crear vida
     public vida crearcorazon(boolean life,int x, int y, int ancho, int alto){
         vida corazon = new vida(life, x,y,ancho,alto);
         return corazon;
     }
-    
+    //funcion para crear enemigo
     public Enemigo createEnemy(int x, int y, int width, int heigth,boolean orientation, boolean isCarro, int isBonus) {
         Enemigo enemigo = new Enemigo(x,y,width, heigth, orientation, isCarro, isBonus);
         return enemigo;
     }
+    //creacion de jugador, enemigos, corazones, obteniendo sonido e imagenes de decoracion(mosca y fondo)
     public dibujo() {
         this.mosca = new ImageIcon(getClass().getResource("../imagenes/mosca.png"));
         this.sonido = java.applet.Applet.newAudioClip(getClass().getResource("../sonido/fondo.wav"));
@@ -122,7 +126,7 @@ public final class dibujo extends javax.swing.JPanel {
             .addGap(0, 300, Short.MAX_VALUE)
         );
     }// </editor-fold>//GEN-END:initComponents
-
+    //Movimiento del jugador    
     public void Direcciones(int D) {
 
         if (J1 != null) {
@@ -182,7 +186,7 @@ public final class dibujo extends javax.swing.JPanel {
 
         }
     }
-    
+    //colision de jugador con carros y serpientes
     public void Colisiones(Graphics g) {
         if (count == 0) {
             for (int i = 0; i < enemigos.size(); i++) {
@@ -242,7 +246,7 @@ public final class dibujo extends javax.swing.JPanel {
             }
         }
     }
-    
+    //pintar todo
     @Override
     protected void paintComponent(Graphics g) {
         
